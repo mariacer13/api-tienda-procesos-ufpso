@@ -1,4 +1,8 @@
 package com.api.ufpso.tienda.repository;
 
-public interface ArticuloRepository {
+import org.springframework.data.repository.CrudRepository;
+import com.api.ufpso.tienda.model.Articulo;
+
+public interface ArticuloRepository extends CrudRepository<Articulo,Long> {
+
 }

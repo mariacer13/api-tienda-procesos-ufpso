@@ -8,7 +8,10 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Categoria {
+
+//OBJETO - DB
+public class Categoria
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_cate ;

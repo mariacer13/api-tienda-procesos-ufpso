@@ -14,7 +14,7 @@ public class Articulo {
     private Long id;
     private String name;
     private String description;
-    private String category;
-    private Number price;
+    private Double price;
+    private int stock;
 
 }

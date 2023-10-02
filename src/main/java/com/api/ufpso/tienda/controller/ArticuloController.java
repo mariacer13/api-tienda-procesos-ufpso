@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.api.ufpso.tienda.model.Articulo;
-
+import java.util.List;
 @RestController
 public class ArticuloController {
     @Autowired
@@ -32,6 +32,17 @@ public class ArticuloController {
         return new ResponseEntity(articuloService.deleteArticulo(id), HttpStatus.NO_CONTENT);
     }
 
+    // enpoint PUT para "actualizar por ID"
+    @PutMapping("articulos/{id}")
+    public ResponseEntity<Articulo> update(@RequestBody Articulo articulo,@PathVariable Long id){
+        return new ResponseEntity<>(articuloService.updateArticulo(articulo,id),HttpStatus.OK);
+    }
+
+    // enpoint GET para "obtener la lista completa de articulos"
+    @GetMapping("articulos")
+    public ResponseEntity <List<Articulo>> findAll(){
+        return ResponseEntity.ok(articuloService.findAllArticulos());
+    }
 
 
 }

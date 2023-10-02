@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.api.ufpso.tienda.model.Articulo;
 
 import java.util.Optional;
-
+import java.util.List;
 @Service
 public class ArticuloService {
     @Autowired
@@ -31,6 +31,27 @@ public class ArticuloService {
         }
         articuloRepository.delete(articuloBd.get());
         return true;
+    }
+
+    // metodo para actualizar articulos
+    public Articulo updateArticulo(Articulo articuloReq, Long id){
+        Optional<Articulo> articuloBd=articuloRepository.findById(id);
+        if(articuloBd.isEmpty()){
+            return null;
+        }
+        articuloBd.get().setName(articuloReq.getName());
+        articuloBd.get().setPrice(articuloReq.getPrice());
+        articuloBd.get().setDescription(articuloReq.getDescription());
+        articuloBd.get().setStock(articuloReq.getStock());
+
+        return articuloRepository.save(articuloBd.get());
+
+    }
+
+    // metodo para listar todos los articulos
+
+    public List<Articulo> findAllArticulos(){
+        return (List<Articulo>) articuloRepository.findAll();
     }
 
 }

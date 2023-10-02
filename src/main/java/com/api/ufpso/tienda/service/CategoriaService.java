@@ -20,7 +20,7 @@ public class CategoriaService
     //Servicio para "LISTAR categoria por ID"
     public Categoria getCategoriaById(Long id_cate)
     {
-        return categoriaRepository.findById(id_cate).get();
+        return categoriaRepository.findById(id_cate).orElse(null);
     }
     //----------------------------------------------------------
 

@@ -22,9 +22,11 @@ public class ArticuloController {
 
     // endpoint POST para "enviar valores"
     @PostMapping("articulos")
-    public ResponseEntity<Articulo> create(@RequestBody Articulo articulo){
+    public ResponseEntity<Articulo> create(@RequestBody Articulo articulo, Long id){
         return new ResponseEntity<>(articuloService.createArticulo(articulo), HttpStatus.CREATED);
+
     }
+
 
     // endpoint DELETE para "borrar por ID"
     @DeleteMapping("articulos/{id}")

@@ -15,6 +15,6 @@ public class Articulo {
     private int stock;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "id_cate", referencedColumnName = "id_cate")
+    @JoinColumn(name = "idCategory", referencedColumnName = "idCategory")
     private Categoria categoria;
 }

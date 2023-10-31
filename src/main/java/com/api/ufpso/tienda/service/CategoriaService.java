@@ -18,9 +18,9 @@ public class CategoriaService
     //----------------------------------------------------------
 
     //Servicio para "LISTAR categoria por ID"
-    public Categoria getCategoriaById(Long id_cate)
+    public Categoria getCategoriaById(Long idCategory)
     {
-        return categoriaRepository.findById(id_cate).orElse(null);
+        return categoriaRepository.findById(idCategory).orElse(null);
     }
     //----------------------------------------------------------
 
@@ -32,22 +32,22 @@ public class CategoriaService
     //----------------------------------------------------------
 
     //Servicio para "EDITAR categoria"
-    public Categoria updateCategoria(Categoria categoriaReq, Long id_cate)
+    public Categoria updateCategoria(Categoria categoriaReq, Long idCategory)
     {
-        Optional<Categoria> categoriaBd = categoriaRepository.findById(id_cate);
+        Optional<Categoria> categoriaBd = categoriaRepository.findById(idCategory);
         if(categoriaBd.isEmpty())
         {
             return null;
         }
-        categoriaBd.get().setName_cate(categoriaReq.getName_cate());
+        categoriaBd.get().setNameCategory(categoriaReq.getNameCategory());
         return categoriaRepository.save(categoriaBd.get());
     }
     //----------------------------------------------------------
 
     //Servicio para "ELIMINAR categoria por ID"
-    public boolean deleteCategoria(Long id_cate)
+    public boolean deleteCategoria(Long idCategory)
     {
-        Optional<Categoria> categoriaBd = categoriaRepository.findById(id_cate);
+        Optional<Categoria> categoriaBd = categoriaRepository.findById(idCategory);
         if(categoriaBd.isEmpty())
         {
             return false;

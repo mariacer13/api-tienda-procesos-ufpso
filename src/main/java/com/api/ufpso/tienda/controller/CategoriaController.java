@@ -18,10 +18,10 @@ public class CategoriaController
     //----------------------------------------------------------
 
     //EndPoint GET para "Obtener por ID"
-    @GetMapping("categorias/{id_cate}")
-    public ResponseEntity<Categoria> getCategoriaById(@PathVariable Long id_cate)
+    @GetMapping("categorias/{idCategory}")
+    public ResponseEntity<Categoria> getCategoriaById(@PathVariable Long idCategory)
     {
-        return ResponseEntity.ok(categoriaService.getCategoriaById(id_cate));
+        return ResponseEntity.ok(categoriaService.getCategoriaById(idCategory));
     }
     //----------------------------------------------------------
 
@@ -34,18 +34,18 @@ public class CategoriaController
     //----------------------------------------------------------
 
     //EndPoint PUT para "Actualizar por ID"
-    @PutMapping("categorias/{id_cate}")
-    public ResponseEntity<Categoria> update(@RequestBody Categoria categoria, @PathVariable Long id_cate)
+    @PutMapping("categorias/{idCategory}")
+    public ResponseEntity<Categoria> update(@RequestBody Categoria categoria, @PathVariable Long idCategory)
     {
-        return new ResponseEntity<>(categoriaService.updateCategoria(categoria, id_cate), HttpStatus.OK);
+        return new ResponseEntity<>(categoriaService.updateCategoria(categoria, idCategory), HttpStatus.OK);
     }
     //----------------------------------------------------------
 
     //EndPoint DELETE para "Borrar por ID"
-    @DeleteMapping("categorias/{id_cate}")
-    public ResponseEntity<String> delete(@PathVariable Long id_cate)
+    @DeleteMapping("categorias/{idCategory}")
+    public ResponseEntity<String> delete(@PathVariable Long idCategory)
     {
-        return new ResponseEntity(categoriaService.deleteCategoria(id_cate), HttpStatus.NO_CONTENT);
+        return new ResponseEntity(categoriaService.deleteCategoria(idCategory), HttpStatus.NO_CONTENT);
     }
     //----------------------------------------------------------
 

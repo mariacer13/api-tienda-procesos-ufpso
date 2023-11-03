@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum Constants {
-    ARTICULO_NOT_FOUND("Articulo not found"),
-    ARTICULO_IS_NULL("Articulo is null");
+    ARTICLE_NOT_FOUND("Article not found"),
+    ARTICLE_IS_NULL("Article is null");
 
     private String message;
     Constants(String s){

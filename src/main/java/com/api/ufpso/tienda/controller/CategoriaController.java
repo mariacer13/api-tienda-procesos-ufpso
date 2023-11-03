@@ -2,6 +2,7 @@ package com.api.ufpso.tienda.controller;
 
 import com.api.ufpso.tienda.model.Categoria;
 import com.api.ufpso.tienda.service.CategoriaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,25 +20,25 @@ public class CategoriaController
 
     //EndPoint GET para "Obtener por ID"
     @GetMapping("categorias/{idCategory}")
-    public ResponseEntity<Categoria> getCategoriaById(@PathVariable Long idCategory)
+    public ResponseEntity getCategoriaById(@PathVariable Long idCategory)
     {
         return ResponseEntity.ok(categoriaService.getCategoriaById(idCategory));
     }
     //----------------------------------------------------------
 
     //EndPoint POST para "Enviar valores"
-    @PostMapping("categorias")
-    public ResponseEntity<Categoria> create(@RequestBody Categoria categoria)
+    @PostMapping("categorias/{idCategory}")
+    public ResponseEntity create(@Valid @RequestBody Categoria categoria, @PathVariable Long id)
     {
-        return new ResponseEntity<>(categoriaService.createCategoria(categoria), HttpStatus.CREATED);
+        return new ResponseEntity<>(categoriaService.createCategoria(categoria, id), HttpStatus.CREATED);
     }
     //----------------------------------------------------------
 
     //EndPoint PUT para "Actualizar por ID"
     @PutMapping("categorias/{idCategory}")
-    public ResponseEntity<Categoria> update(@RequestBody Categoria categoria, @PathVariable Long idCategory)
+    public ResponseEntity update( @PathVariable Long idCategory)
     {
-        return new ResponseEntity<>(categoriaService.updateCategoria(categoria, idCategory), HttpStatus.OK);
+        return ResponseEntity.ok(categoriaService.updateCategoria(idCategory));
     }
     //----------------------------------------------------------
 
@@ -51,7 +52,7 @@ public class CategoriaController
 
     //EndPoint GET para "Listar ALL"
     @GetMapping("categorias")
-    public ResponseEntity<List<Categoria>> getCategoriaAll()
+    public ResponseEntity getCategoriaAll()
     {
         return ResponseEntity.ok(categoriaService.getCategoriaAll());
     }

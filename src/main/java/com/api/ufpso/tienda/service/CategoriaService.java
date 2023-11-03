@@ -1,6 +1,9 @@
 package com.api.ufpso.tienda.service;
 
+import com.api.ufpso.tienda.exception.NotFoundException;
+import com.api.ufpso.tienda.model.Articulo;
 import com.api.ufpso.tienda.repository.CategoriaRepository;
+import com.api.ufpso.tienda.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.api.ufpso.tienda.model.Categoria;
@@ -15,44 +18,54 @@ public class CategoriaService
     @Autowired
     //Instancia del REPOSITORIO
     private CategoriaRepository categoriaRepository;
+
+    @Autowired
+    private ArticuloService articuloService;
     //----------------------------------------------------------
 
     //Servicio para "LISTAR categoria por ID"
     public Categoria getCategoriaById(Long idCategory)
     {
-        return categoriaRepository.findById(idCategory).get();
+        Optional<Categoria> categoria=categoriaRepository.findById(idCategory);
+        if(categoria.isEmpty()){
+            throw new NotFoundException(Constants.CATEGORY_NOT_FOUND.getMessage());
+
+        }
+        return categoria.get();
     }
     //----------------------------------------------------------
 
     //Servicio para "CREAR categoria"
-    public Categoria createCategoria(Categoria categoriaReq)
+    public Categoria createCategoria(Categoria categoria, Long id)
     {
-        return categoriaRepository.save(categoriaReq);
+        Articulo articulo= articuloService.getArticuloById(id);
+        articulo.setCategoria(categoria);
+        return categoriaRepository.save(categoria);
     }
     //----------------------------------------------------------
 
     //Servicio para "EDITAR categoria"
-    public Categoria updateCategoria(Categoria categoriaReq, Long idCategory)
+    public Categoria updateCategoria(Long idCategory)
     {
-        Optional<Categoria> categoriaBd = categoriaRepository.findById(idCategory);
-        if(categoriaBd.isEmpty())
+        Optional<Categoria> categoria = categoriaRepository.findById(idCategory);
+        if(categoria.isEmpty())
         {
-            return null;
+            throw new NotFoundException(Constants.CATEGORY_NOT_FOUND.getMessage());
         }
-        categoriaBd.get().setNameCategory(categoriaReq.getNameCategory());
-        return categoriaRepository.save(categoriaBd.get());
+        categoria.get().setStatus(Boolean.FALSE);
+        return categoriaRepository.save(categoria.get());
     }
     //----------------------------------------------------------
 
     //Servicio para "ELIMINAR categoria por ID"
     public boolean deleteCategoria(Long idCategory)
     {
-        Optional<Categoria> categoriaBd = categoriaRepository.findById(idCategory);
-        if(categoriaBd.isEmpty())
+        Optional<Categoria> categoria = categoriaRepository.findById(idCategory);
+        if(categoria.isEmpty())
         {
-            return false;
+            throw new NotFoundException(Constants.CATEGORY_NOT_FOUND.getMessage());
         }
-        categoriaRepository.delete(categoriaBd.get());
+        categoriaRepository.delete(categoria.get());
         return true;
     }
     //----------------------------------------------------------

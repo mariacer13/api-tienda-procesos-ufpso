@@ -1,9 +1,6 @@
 package com.api.ufpso.tienda.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -16,5 +13,10 @@ public class Articulo {
     private String description;
     private Double price;
     private int stock;
+
+    @ManyToOne
+    @JoinColumn(name = "idCategory", referencedColumnName = "id")
+    private Categoria categoria;
+
 
 }

@@ -8,15 +8,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.lang.reflect.MalformedParameterizedTypeException;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-
-@ControllerAdvice
-public class CustomExceptionHandler {
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<Object> handleNotFoundException(NotFoundException notFoundException){
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
         Map<String, String> response = new HashMap<>();
         response.put("Date: ", LocalDate.now().toString());
         response.put("Message: ", notFoundException.getMessage());
@@ -26,6 +19,7 @@ public class CustomExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MalformedParameterizedTypeException.class)
+
     public Map<String, String> handleValidationExceptions(
             MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -37,3 +31,4 @@ public class CustomExceptionHandler {
         return errors;
     }
 }
+

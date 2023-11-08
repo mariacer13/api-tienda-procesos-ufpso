@@ -1,6 +1,7 @@
 package com.api.ufpso.tienda.controller;
 
 import com.api.ufpso.tienda.service.ArticuloService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,8 @@ public class ArticuloController {
 
     // endpoint POST para "enviar valores"
     @PostMapping("articulos")
-    public ResponseEntity<Articulo> create(@RequestBody Articulo articulo, Long id){
+
+    public ResponseEntity<Articulo> create(@Valid @RequestBody Articulo articulo){
         return new ResponseEntity<>(articuloService.createArticulo(articulo), HttpStatus.CREATED);
 
     }
@@ -36,7 +38,7 @@ public class ArticuloController {
 
     // enpoint PUT para "actualizar por ID"
     @PutMapping("articulos/{id}")
-    public ResponseEntity<Articulo> update(@RequestBody Articulo articulo,@PathVariable Long id){
+    public ResponseEntity<Articulo> update(@Valid @RequestBody Articulo articulo,@PathVariable Long id){
         return new ResponseEntity<>(articuloService.updateArticulo(articulo,id),HttpStatus.OK);
     }
 

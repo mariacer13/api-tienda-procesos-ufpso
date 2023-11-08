@@ -33,6 +33,7 @@ public class ArticuloService {
         return articuloRepository.save(articuloReq);
     }
 
+
     //metodo para eliminar articulos
     public boolean deleteArticulo(Long id){
         Optional<Articulo> articuloBd=articuloRepository.findById(id);
@@ -53,6 +54,8 @@ public class ArticuloService {
         articuloBd.get().setPrice(articuloReq.getPrice());
         articuloBd.get().setDescription(articuloReq.getDescription());
         articuloBd.get().setStock(articuloReq.getStock());
+
+        
         return articuloRepository.save(articuloBd.get());
 
     }

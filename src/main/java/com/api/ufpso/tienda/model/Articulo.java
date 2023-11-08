@@ -1,5 +1,6 @@
 package com.api.ufpso.tienda.model;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,6 +8,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Size;
+
 import lombok.Data;
 
 @Data
@@ -27,4 +29,6 @@ public class Articulo {
     @NotNull(message = "Stock is required")
     @Min(value= 0, message = "stock >= 0")
     private int stock;
+
+
 }

@@ -1,6 +1,5 @@
 package com.api.ufpso.tienda.model;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,5 +29,7 @@ public class Articulo {
     @Min(value= 0, message = "stock >= 0")
     private int stock;
 
-
+    @ManyToOne
+    @JoinColumn(name = "idCategory", referencedColumnName = "id")
+    private Categoria categoria;
 }

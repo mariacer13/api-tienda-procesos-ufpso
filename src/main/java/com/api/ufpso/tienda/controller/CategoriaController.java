@@ -21,6 +21,7 @@ public class CategoriaController
     //EndPoint GET para "Obtener por ID"
     @GetMapping("categorias/{idCategory}")
     public ResponseEntity getCategoriaById(@PathVariable Long idCategory)
+
     {
         return ResponseEntity.ok(categoriaService.getCategoriaById(idCategory));
     }

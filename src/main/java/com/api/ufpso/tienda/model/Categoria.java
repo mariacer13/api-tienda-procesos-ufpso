@@ -26,5 +26,4 @@ public class Categoria
     @JsonIgnore
     @OneToMany(mappedBy = "categoria")
     List<Articulo>articuloList;
-
 }

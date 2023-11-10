@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Size;
+import jakarta.persistence.*;
 
 import lombok.Data;
 

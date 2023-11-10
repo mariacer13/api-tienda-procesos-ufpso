@@ -23,7 +23,9 @@ public class Categoria
 
     private Boolean status=Boolean.TRUE;
 
+    /*
     @JsonIgnore
     @OneToMany(mappedBy = "categoria")
     List<Articulo>articuloList;
+     */
 }

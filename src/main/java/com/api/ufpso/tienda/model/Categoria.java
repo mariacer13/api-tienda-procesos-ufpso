@@ -21,11 +21,11 @@ public class Categoria
     @Size(max = 255, message = "Name category max 255 characters")
     private String nameCategory;
 
-    private Boolean status=Boolean.TRUE;
-
-    /*
     @JsonIgnore
     @OneToMany(mappedBy = "categoria")
-    List<Articulo>articuloList;
-     */
+    List<Articulo> articuloList;
+
+    /*@ManyToOne()
+    @JoinColumn(name="id_articulo", referencedColumnName = "id")
+    private Articulo articulo;*/
 }

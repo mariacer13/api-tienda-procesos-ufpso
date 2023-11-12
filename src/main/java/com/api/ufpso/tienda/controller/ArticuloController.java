@@ -1,5 +1,7 @@
 package com.api.ufpso.tienda.controller;
 
+import com.api.ufpso.tienda.model.Address;
+import com.api.ufpso.tienda.model.Categoria;
 import com.api.ufpso.tienda.service.ArticuloService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,8 @@ import com.api.ufpso.tienda.model.Articulo;
 import java.util.List;
 @RestController
 public class ArticuloController {
-    @Autowired
 
-    // instancia del servicio
+    @Autowired
     private ArticuloService articuloService;
 
     //endpoint GET para "obtener por ID"
@@ -21,14 +22,12 @@ public class ArticuloController {
         return ResponseEntity.ok(articuloService.getArticuloById(id));
     }
 
-    // endpoint POST para "enviar valores"
-    @PostMapping("articulos")
 
-    public ResponseEntity<Articulo> create(@Valid @RequestBody Articulo articulo){
-        return new ResponseEntity<>(articuloService.createArticulo(articulo), HttpStatus.CREATED);
-
+    @PostMapping("articulos/{idCategory}")
+    public ResponseEntity<Articulo> create(@Valid @RequestBody Articulo articulo, @PathVariable Long idCategory)
+    {
+        return new ResponseEntity<>(articuloService.createArticulo(articulo, idCategory), HttpStatus.CREATED);
     }
-
 
     // endpoint DELETE para "borrar por ID"
     @DeleteMapping("articulos/{id}")

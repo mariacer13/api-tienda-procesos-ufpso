@@ -25,11 +25,13 @@ public class UserController {
     public ResponseEntity<User>  getUserById(@PathVariable Long id){
         return ResponseEntity.ok(userService.getUserById(id));
     }
+
     //EndPoint POST para "Enviar valores"
     @PostMapping("users")
     public ResponseEntity<User> create(@Valid @RequestBody User user){
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
     }
+
     //EndPoint PUT para "Actualizar por ID"
     @PutMapping("users/{id}")
     public ResponseEntity<User> update(@Valid @RequestBody User user,@PathVariable Long id){

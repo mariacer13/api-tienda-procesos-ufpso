@@ -36,8 +36,9 @@ public class UserService {
             throw new NotFoundException(Constans.USER_NOT_FOUND.getMessage());
         }
         userBd.get().setFirstName(userReq.getFirstName());
-        userBd.get().setLastname(userReq.getLastname());
+        userBd.get().setLastName(userReq.getLastName());
         userBd.get().setPhone(userReq.getPhone());
+        userBd.get().setDocument(userReq.getDocument());
         return userRepository.save(userBd.get());
     }
     public boolean deleteUser(Long id){

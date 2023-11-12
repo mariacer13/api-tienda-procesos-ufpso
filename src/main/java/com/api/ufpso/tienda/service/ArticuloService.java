@@ -1,9 +1,11 @@
 package com.api.ufpso.tienda.service;
 
 import com.api.ufpso.tienda.exception.NotFoundException;
+import com.api.ufpso.tienda.model.Categoria;
 import com.api.ufpso.tienda.repository.ArticuloRepository;
 import com.api.ufpso.tienda.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import com.api.ufpso.tienda.model.Articulo;
 import org.yaml.snakeyaml.scanner.Constant;
@@ -12,8 +14,13 @@ import java.util.Optional;
 import java.util.List;
 @Service
 public class ArticuloService {
+
     @Autowired
     private ArticuloRepository articuloRepository;
+
+    @Autowired
+    @Lazy
+    private CategoriaService categoriaService;
 
     // metodo listar articulos por ID
     public Articulo getArticuloById(Long id){
@@ -28,9 +35,16 @@ public class ArticuloService {
         return articuloRepository.findById(id).get();
     }
     // metodo para crear articulos
-    public Articulo createArticulo(Articulo articuloReq){
+    /*public Articulo createArticulo(Articulo articuloReq){
 
         return articuloRepository.save(articuloReq);
+    }*/
+
+    public Articulo createArticulo(Articulo articulo, Long idCategory)
+    {
+        Categoria categoria = categoriaService.getCategoriaById(idCategory);
+        articulo.setCategoria(categoria);
+        return articuloRepository.save(articulo);
     }
 
 

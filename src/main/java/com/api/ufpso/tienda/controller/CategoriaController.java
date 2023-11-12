@@ -1,5 +1,6 @@
 package com.api.ufpso.tienda.controller;
 
+import com.api.ufpso.tienda.model.Articulo;
 import com.api.ufpso.tienda.model.Categoria;
 import com.api.ufpso.tienda.service.CategoriaService;
 import jakarta.validation.Valid;
@@ -27,11 +28,10 @@ public class CategoriaController
     }
     //----------------------------------------------------------
 
-    //EndPoint POST para "Enviar valores"
-    @PostMapping("categorias/{idCategory}")
-    public ResponseEntity create(@Valid @RequestBody Categoria categoria, @PathVariable Long id)
-    {
-        return new ResponseEntity<>(categoriaService.createCategoria(categoria, id), HttpStatus.CREATED);
+    // endpoint POST para "enviar valores"
+    @PostMapping("categorias")
+    public ResponseEntity<Categoria> create(@Valid @RequestBody Categoria categoria){
+        return new ResponseEntity<>(categoriaService.createCategoria(categoria), HttpStatus.CREATED);
     }
     //----------------------------------------------------------
 

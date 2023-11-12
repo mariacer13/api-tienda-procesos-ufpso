@@ -21,7 +21,7 @@ public class User {
 
     @NotNull(message = "lastname is REQUIRED")
     @Size(max = 255, message = "lastname max 255 characters")
-    private String lastname;
+    private String lastName;
 
     @NotNull(message = "document is REQUIRED")
     @Size(min = 5, max = 15, message = "document min 5 and max 15 characters")

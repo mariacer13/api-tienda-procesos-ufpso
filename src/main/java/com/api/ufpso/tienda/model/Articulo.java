@@ -1,15 +1,12 @@
 package com.api.ufpso.tienda.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -30,7 +27,11 @@ public class Articulo {
     @Min(value= 0, message = "stock >= 0")
     private int stock;
 
-    @ManyToOne
-    @JoinColumn(name = "idCategory", referencedColumnName = "id")
+    @ManyToOne()
+    @JoinColumn(name = "id_category", referencedColumnName = "idCategory")
     private Categoria categoria;
+
+    /*@JsonIgnore //Cuando genere una respuesta, ignore lo siguiente
+    @OneToMany(mappedBy = "articulo")
+    List<Categoria> categoriaList;*/
 }

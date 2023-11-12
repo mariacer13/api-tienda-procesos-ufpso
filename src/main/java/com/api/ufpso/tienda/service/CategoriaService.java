@@ -19,8 +19,6 @@ public class CategoriaService
     //Instancia del REPOSITORIO
     private CategoriaRepository categoriaRepository;
 
-    @Autowired
-    private ArticuloService articuloService;
     //----------------------------------------------------------
 
     //Servicio para "LISTAR categoria por ID"
@@ -36,11 +34,9 @@ public class CategoriaService
     //----------------------------------------------------------
 
     //Servicio para "CREAR categoria"
-    public Categoria createCategoria(Categoria categoria, Long id)
+    public Categoria createCategoria(Categoria categoriaReq)
     {
-        Articulo articulo= articuloService.getArticuloById(id);
-        articulo.setCategoria(categoria);
-        return categoriaRepository.save(categoria);
+        return categoriaRepository.save(categoriaReq);
     }
     //----------------------------------------------------------
 
@@ -52,7 +48,7 @@ public class CategoriaService
         {
             throw new NotFoundException(Constants.CATEGORY_NOT_FOUND.getMessage());
         }
-        categoria.get().setStatus(Boolean.FALSE);
+
         return categoriaRepository.save(categoria.get());
     }
     //----------------------------------------------------------

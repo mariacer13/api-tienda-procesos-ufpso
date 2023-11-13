@@ -34,7 +34,7 @@ public class User {
 
 
     @NotNull(message = "password is REQUIRED")
-    @Size(min = 8, max = 15, message = "password min 8 and max 15 characters")
+    @Size(min = 8, max = 200, message = "password min 8 and max 15 characters")
     private String password;
 
     @JsonIgnore //Cuando genere una respuesta, ignore lo siguiente

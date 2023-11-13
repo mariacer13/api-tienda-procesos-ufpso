@@ -5,13 +5,16 @@ import com.api.ufpso.tienda.model.User;
 import com.api.ufpso.tienda.repository.UserRepository;
 import com.api.ufpso.tienda.util.Constans;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -52,5 +55,13 @@ public class UserService {
 
     public List<User> findAllUsers(){
         return (List<User>) userRepository.findAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository
+                .findOneByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("El usuario con email" + email + "no existe."));
+        return new UserDetailsImpl(user);
     }
 }

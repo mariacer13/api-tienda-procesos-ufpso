@@ -32,9 +32,10 @@ public class UserController {
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
     }
 
+
     //EndPoint PUT para "Actualizar por ID"
     @PutMapping("users/{id}")
-    public ResponseEntity<User> update(@Valid @RequestBody User user,@PathVariable Long id){
+    public ResponseEntity<User> update(@RequestBody User user,@PathVariable Long id){
         return new ResponseEntity<>(userService.updateUser(user,id), HttpStatus.OK);
     }
     //EndPoint DELETE para "Borrar por ID"
@@ -47,4 +48,6 @@ public class UserController {
     public ResponseEntity<List<User>>  findAll(){
         return ResponseEntity.ok(userService.findAllUsers());
     }
+
+
 }

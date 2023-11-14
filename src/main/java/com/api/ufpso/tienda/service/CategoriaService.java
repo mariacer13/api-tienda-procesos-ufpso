@@ -41,15 +41,15 @@ public class CategoriaService
     //----------------------------------------------------------
 
     //Servicio para "EDITAR categoria"
-    public Categoria updateCategoria(Long idCategory)
+    public Categoria updateCategoria(Categoria categoriaReq, Long idCategory)
     {
-        Optional<Categoria> categoria = categoriaRepository.findById(idCategory);
-        if(categoria.isEmpty())
+        Optional<Categoria> categoriaBd = categoriaRepository.findById(idCategory);
+        if(categoriaBd.isEmpty())
         {
             throw new NotFoundException(Constants.CATEGORY_NOT_FOUND.getMessage());
         }
-
-        return categoriaRepository.save(categoria.get());
+        categoriaBd.get().setNameCategory(categoriaReq.getNameCategory());
+        return categoriaRepository.save(categoriaBd.get());
     }
     //----------------------------------------------------------
 

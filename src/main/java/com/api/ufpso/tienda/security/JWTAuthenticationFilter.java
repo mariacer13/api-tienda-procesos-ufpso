@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Map;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -37,13 +38,34 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-
         UserDetailsImpl userDetails = (UserDetailsImpl) authResult.getPrincipal();
         String token = TokenUtils.createToken(userDetails.getName(), userDetails.getUsername());
 
-        response.addHeader("Authorization", "Bearer " + token);
+        // Configurar el cuerpo de la respuesta con el token
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        // Crear un objeto JSON para la respuesta
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, String> responseBody = Collections.singletonMap("token", "Bearer " + token);
+
+        // Escribir el objeto JSON en el cuerpo de la respuesta
+        response.getWriter().write(objectMapper.writeValueAsString(responseBody));
         response.getWriter().flush();
 
         super.successfulAuthentication(request, response, chain, authResult);
     }
+
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                              AuthenticationException failed) throws IOException, ServletException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+
+        // Mensaje de error personalizado
+        String errorMessage = "Credenciales incorrectas. Por favor, verifique su email y password.";
+        response.getWriter().write(new ObjectMapper().writeValueAsString(Collections.singletonMap("error", errorMessage)));
+    }
+
 }

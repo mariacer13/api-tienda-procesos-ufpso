@@ -15,7 +15,7 @@ public class TokenUtils {
 
     // Clave con longitud de 256 bits (32 bytes)
     private final static String ACCESS_TOKEN_SECRET = "Kpmtr515lcs96s5mnrhbakm097Kpmtr515lcs96s5mnrhbakm097";
-    private final static Long ACCESS_TOKEN_VALIDITY_SECONDS = 2_592_000L;
+    private final static Long ACCESS_TOKEN_VALIDITY_SECONDS = 2_569_000L;
 
     public static String createToken(String nombre, String email) {
         long expirationTime = ACCESS_TOKEN_VALIDITY_SECONDS + 1_000;

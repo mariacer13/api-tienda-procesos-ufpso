@@ -37,9 +37,9 @@ public class CategoriaController
 
     //EndPoint PUT para "Actualizar por ID"
     @PutMapping("categorias/{idCategory}")
-    public ResponseEntity update( @PathVariable Long idCategory)
+    public ResponseEntity<Categoria> update(@Valid @RequestBody Categoria categoria, @PathVariable Long idCategory)
     {
-        return ResponseEntity.ok(categoriaService.updateCategoria(idCategory));
+        return new ResponseEntity<>(categoriaService.updateCategoria(categoria, idCategory),HttpStatus.OK);
     }
     //----------------------------------------------------------
 

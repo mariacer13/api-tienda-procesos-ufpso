@@ -8,9 +8,9 @@ public enum Constants {
     ARTICLE_NOT_FOUND("Article not found"),
     ARTICLE_IS_NULL("Article is null"),
 
+    ADDRESS_NOT_FOUND("Address not found"),
     USER_NOT_FOUND("User not found"),
-    USER_IS_NULL("User is null"),
-    ADDRESS_NOT_FOUND("Address not found");
+    USER_IS_NULL("User is null");
 
     private String message;
     Constants(String s){

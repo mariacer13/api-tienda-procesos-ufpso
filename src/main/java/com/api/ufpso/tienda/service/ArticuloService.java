@@ -34,11 +34,6 @@ public class ArticuloService {
         }
         return articuloRepository.findById(id).get();
     }
-    // metodo para crear articulos
-    /*public Articulo createArticulo(Articulo articuloReq){
-
-        return articuloRepository.save(articuloReq);
-    }*/
 
     public Articulo createArticulo(Articulo articulo, Long idCategory)
     {
@@ -68,7 +63,6 @@ public class ArticuloService {
         articuloBd.get().setPrice(articuloReq.getPrice());
         articuloBd.get().setDescription(articuloReq.getDescription());
         articuloBd.get().setStock(articuloReq.getStock());
-
         
         return articuloRepository.save(articuloBd.get());
 

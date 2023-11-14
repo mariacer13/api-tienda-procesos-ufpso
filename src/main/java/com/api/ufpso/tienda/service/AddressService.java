@@ -4,7 +4,7 @@ import com.api.ufpso.tienda.exception.NotFoundException;
 import com.api.ufpso.tienda.model.Address;
 import com.api.ufpso.tienda.model.User;
 import com.api.ufpso.tienda.repository.AddressRepository;
-import com.api.ufpso.tienda.util.Constans;
+import com.api.ufpso.tienda.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class AddressService
     {
         Optional<Address> address = addressRepository.findById(id);
         if (address.isEmpty()){
-            throw new NotFoundException(Constans.ADDRESS_NOT_FOUND.getMessage());
+            throw new NotFoundException(Constants.ADDRESS_NOT_FOUND.getMessage());
         }
         return address.get();
     }
@@ -38,7 +38,7 @@ public class AddressService
         Optional<Address> address = addressRepository.findById(id);
         if (address.isEmpty())
         {
-            throw new NotFoundException(Constans.ADDRESS_NOT_FOUND.getMessage());
+            throw new NotFoundException(Constants.ADDRESS_NOT_FOUND.getMessage());
         }
         address.get().setStatus(Boolean.FALSE);
         return addressRepository.save(address.get());

@@ -14,16 +14,16 @@ public class Articulo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "Name article is required")
+    @NotNull(message = "Name article is required")
     @Size(max = 255, message = "Name article max 255 characters")
     private String name;
-    @NotBlank(message = "Description is required")
+    @NotNull(message = "Description is required")
     @Size(max = 400, message = "lastname max 400 characters")
     private String description;
-    @NotBlank(message = "Price is required")
+    @NotNull(message = "Price is required")
     @Min(value= 0, message = "price > 0")
     private Double price;
-    @NotBlank(message = "Stock is required")
+    @NotNull(message = "Stock is required")
     @Min(value= 0, message = "stock >= 0")
     private int stock;
 

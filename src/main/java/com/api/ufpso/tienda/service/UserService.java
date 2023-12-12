@@ -1,34 +1,35 @@
 package com.api.ufpso.tienda.service;
 
+import com.api.ufpso.tienda.exception.AlreadyExistsException;
 import com.api.ufpso.tienda.exception.NotFoundException;
 import com.api.ufpso.tienda.model.User;
 import com.api.ufpso.tienda.repository.UserRepository;
 import com.api.ufpso.tienda.util.Constants;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService implements UserDetailsService {
+@RequiredArgsConstructor
+public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    public User createUser(User userReq) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encryptedPassword = passwordEncoder.encode(userReq.getPassword());
-        userReq.setPassword(encryptedPassword);
-
+    private final PasswordEncoder passwordEncoder;
+    public User createUser(User userReq){
+        Optional<User> existingUserByEmail = userRepository.findByEmail(userReq.getEmail());
+        if (existingUserByEmail.isPresent()) {
+            throw new AlreadyExistsException(Constants.USER_EMAIL_EXISTS.getMessage());
+        }
+        userReq.setPassword(passwordEncoder.encode(userReq.getPassword()));
         return userRepository.save(userReq);
     }
     public User getUserById(Long id){
@@ -45,14 +46,20 @@ public class UserService implements UserDetailsService {
     public User updateUser(User userReq, Long id){
         Optional<User> userBd = userRepository.findById(id);
         if(userBd.isEmpty()){
-            throw new NotFoundException(Constants.USER_NOT_FOUND.getMessage());
+            throw new NotFoundException("User not found");
+        }
+        if(!userBd.get().getEmail().equals(userReq.getEmail())){
+            Optional<User> existingUserByEmail = userRepository.findByEmail(userReq.getEmail());
+            if (existingUserByEmail.isPresent()) {
+                throw new AlreadyExistsException(Constants.USER_EMAIL_EXISTS.getMessage());
+            }
         }
         userBd.get().setFirstName(userReq.getFirstName());
         userBd.get().setLastName(userReq.getLastName());
         userBd.get().setPhone(userReq.getPhone());
-        userBd.get().setDocument(userReq.getDocument());
         return userRepository.save(userBd.get());
     }
+
     public boolean deleteUser(Long id){
         Optional<User> userBd = userRepository.findById(id);
         if(userBd.isEmpty()){
@@ -66,17 +73,6 @@ public class UserService implements UserDetailsService {
         return (List<User>) userRepository.findAll();
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<User> userOptional = userRepository.findOneByEmail(email);
-
-        if (userOptional.isEmpty()) {
-            throw new UsernameNotFoundException("El usuario con email " + email + " no existe.");
-        }
-
-        User user = userOptional.get();
-        return new UserDetailsImpl(user);
-    }
 
 
 }

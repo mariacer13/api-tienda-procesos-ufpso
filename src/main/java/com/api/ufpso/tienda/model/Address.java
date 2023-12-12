@@ -15,7 +15,7 @@ public class Address
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "streetAddress REQUIRED")
+    @NotBlank(message = "street Address REQUIRED")
     @Size(max = 255, message = "streetAddress max 255 characters")
     private String streetAddress;
 

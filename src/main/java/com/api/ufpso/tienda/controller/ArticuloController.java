@@ -23,10 +23,10 @@ public class ArticuloController {
     }
 
 
-    @PostMapping("articulos/{idCategory}")
-    public ResponseEntity<Articulo> create(@Valid @RequestBody Articulo articulo, @PathVariable Long idCategory)
+    @PostMapping("articulos/{id}")
+    public ResponseEntity<Articulo> create(@Valid @RequestBody Articulo articulo, @PathVariable Long id)
     {
-        return new ResponseEntity<>(articuloService.createArticulo(articulo, idCategory), HttpStatus.CREATED);
+        return new ResponseEntity<>(articuloService.createArticulo(articulo, id), HttpStatus.CREATED);
     }
 
     // endpoint DELETE para "borrar por ID"

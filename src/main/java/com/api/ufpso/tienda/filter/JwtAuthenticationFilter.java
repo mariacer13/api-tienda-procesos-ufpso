@@ -1,5 +1,6 @@
-package com.api.ufpso.tienda.security;
+package com.api.ufpso.tienda.filter;
 
+import com.api.ufpso.tienda.service.JWTService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,17 +13,18 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-public class JWTAuthorizationFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter{
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
         String bearerToken = request.getHeader("Authorization");
 
         if (bearerToken != null && bearerToken.startsWith("Bearer ")){
             String token = bearerToken.replace("Bearer ", "");
-            UsernamePasswordAuthenticationToken usernamePAT = TokenUtils.getAuthentication(token);
+            UsernamePasswordAuthenticationToken usernamePAT = JWTService.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(usernamePAT);
         }
         filterChain.doFilter(request, response);
     }
+
 }
